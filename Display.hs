@@ -1,10 +1,10 @@
 module Display (idle, display) where
 
 import           Control.Monad
-import           Cube
 import           Data.IORef
 import           Graphics.UI.GLUT
 import           Points
+import           SpaceCraft
 
 display :: IORef GLfloat -> IORef (GLfloat, GLfloat) -> DisplayCallback
 display angle pos = do
@@ -17,12 +17,12 @@ display angle pos = do
         rotate a $ Vector3 0 0 1
         rotate a $ Vector3 0 0.1 1
         scale 0.7 0.7 (0.7::GLfloat)
-        forM_ (points 7) $ \(x,y,z) -> preservingMatrix $ do
+        forM_ (points 1) $ \(x,y,z) -> preservingMatrix $ do
             color $ Color3 ((x+1)/2) ((y+1)/2) ((z+1)/2)
             translate $ Vector3 x y z
-            cube 0.1
-            color $ Color3 (0::GLfloat) 0 0
-            cubeFrame 0.1
+            spaceCraft 0.1
+            -- color $ Color3 (0::GLfloat) 0 0
+            -- cubeFrame 0.1
     swapBuffers
 
 idle :: IORef GLfloat -> IORef GLfloat -> IdleCallback
